@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load static%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Projects{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+{% block content%}
+<section class="wrapper">
+    <div class="container-fostrap">
+        <div>
+            <img src="{% static 'logo.png' %}" class="fostrap-logo"/>
+            {%if searchTerm%}
+            <h1 class="heading">
+                Search for {{searchTerm}}
+            </h1>
+            {% else %}
+            <h1 class="heading">
+                Latest projects
+            </h1>
+            {%endif%}
+        </div>
+        <form action="">
+            <div class="s container">
+                <div class="row height d-flex justify-content-center align-items-center">
+                    <div class="col-md-8">
+                        <div class="search">
+                            <input type="text" name="search" list="datalistOptions" class="form-control" placeholder="Type to search..">
+                            <button class="btn btn-dark">Search</button>
+                            <datalist id="datalistOptions">
+                                {% for r in resource %}
+                                <option value="{{ r.name }}">
+                                    {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <style>
+                @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+                .s container{
+                    margin-top: 30px;
+                    margin-bottom: auto;
+                }
+
+                .search{
+                position: relative;
+                box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+
+                }
+
+                .search input{
+
+                height: 60px;
+                text-indent: 25px;
+                border: 2px solid #d6d4d4;
+
+
+                }
+
+
+                .search input:focus{
+
+                box-shadow: none;
+                border: 2px solid rgb(46, 113, 52);
+
+
+                }
+
+                .search .fa-search{
+
+                position: absolute;
+                top: 20px;
+                left: 16px;
+
+                }
+
+                .search button{
+
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                height: 50px;
+                width: 110px;
+                background: rgba(3, 17, 19, 0.887);
+
+                }
+            </style>
+        <!-- search bar ends -->
+
+        <div class="content mt-5">
+            <div class="container">
+                <div class="row">
+                    {% for p in projects %}
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a href="">{{p.name}}
+                                    </a>
+                                </h4>
+                                <p class="">
+                                    Student : {{p.student}}
+                                </p>
+
+                                <p class="">
+                                    Supervisor : {{p.supervisor}}
+                                </p>
+
+                                <p class="">
+                                    Department : {{p.department}}
+                                </p>
+                            </div>
+                            <div class="card-read-more">
+                                <a href="" class="btn btn-link btn-block">
+                                    See More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if resource.has_previous %}
+                    <li class="page-item"><a class="page-link active" href="?page=1">&laquo; 1</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ resource.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    {% if resource.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ resource.next_page_number }}">NEXT</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ resource.paginator.num_pages }}">Last &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+html,
+body {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  background: #FFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+.wrapper {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.container-fostrap {
+  display: table-cell;
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+}
+.fostrap-logo {
+  width: 100px;
+  margin-bottom:15px
+}
+h1.heading {
+  color: #fff;
+  font-size: 1.15em;
+  font-weight: 900;
+  margin: 0 0 0.5em;
+  color: #505050;
+}
+@media (min-width: 450px) {
+  h1.heading {
+    font-size: 3.55em;
+  }
+}
+@media (min-width: 760px) {
+  h1.heading {
+    font-size: 3.05em;
+  }
+}
+@media (min-width: 900px) {
+  h1.heading {
+    font-size: 3.25em;
+    margin: 0 0 0.3em;
+  }
+}
+.card {
+  display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s;
+}
+.card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.img-card {
+  width: 100%;
+  height:200px;
+  border-top-left-radius:2px;
+  border-top-right-radius:2px;
+  display:block;
+    overflow: hidden;
+}
+.img-card img{
+  width: 100%;
+  height: 200px;
+  object-fit:cover;
+  transition: all .25s ease;
+}
+.card-content {
+  padding:15px;
+  text-align:left;
+}
+.card-title {
+  margin-top:0px;
+  font-weight: 700;
+  font-size: 1.65em;
+}
+.card-title a {
+  color: #000;
+  text-decoration: none !important;
+}
+.card-read-more {
+  border-top: 1px solid #D4D4D4;
+}
+.card-read-more a {
+  text-decoration: none !important;
+  padding:10px;
+  font-weight:600;
+  text-transform: uppercase
+}
+</style>
+
+{% endblock content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+</body>
+</html>

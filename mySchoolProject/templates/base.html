@@ -1,0 +1,113 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}{% endblock %}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'landing/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'landing/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'landing/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'landing/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'landing/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <h1 class="logo"><a href="{% url 'projects' %}">Projects</a></h1>
+    <!--         <a href="" class="logo"><img src="{% static 'logo.png' %}" alt="" class="img-fluid"></a>-->
+  {% if request.path == '/' %}
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a class="nav-link scrollto active" href="">Home</a></li>
+        <li><a class="nav-link scrollto " href="{% url 'projects' %}">Projects</a></li>
+        <li><a class="nav-link scrollto" href="{% url 'signin' %}">Signin</a></li>
+        {% comment %} <li><a class="getstarted scrollto" href="{% url 'signup' %}">Get Started</a></li> {% endcomment %}
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
+  {% elif request.path == '/projects/' %}
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a class="nav-link scrollto" href="{% url 'home'%}">Home</a></li>
+        <li><a class="nav-link scrollto  active" href="{% url 'projects' %}">Projects</a></li>
+        <li class="dropdown"><a href=""><span>Order by</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li class="dropdown"><a href="#"><span>Department</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                {% for department in departments %}
+                <li><a href="{% url 'sorted' department.id %}">{{department.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#"><span>Programme</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                <li><a href="#">List of programmes</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        {% if user.is_superuser %}
+        <li><a class="getstarted scrollto" href="{% url 'add_staff'%}">Add staff</a></li>
+        {% endif %}
+        <li><a class="getstarted scrollto" href="{% url 'add_project' %}">Add project</a></li>
+        <li><a class=" scrollto" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
+    {% else %}
+
+    <h1> No header </h1>
+    <!-- .navbar -->
+    {% endif %}
+  </div>
+</header>
+<!-- End Header -->
+
+<!-- block content-->
+
+<div id="main">
+  {% block content %}
+  {% endblock content %}
+</div>
+
+<!-- end block content -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Science Education</span></strong>. All Rights Reserved <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script>
+    </div>
+    <div class="credits">Designed by <a>Chukwu Divine</a>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+<!-- Template Main JS File -->
+<script src="{% static 'landing/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}Science Education - Projects Work{% endblock %}</title>
+</head>
+<body>
+{% block content%}
+<!-- ======= Hero Section ======= -->
+<section id="hero">
+    <div class="hero-container">
+        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide 1 -->
+                <div class="carousel-item active" style="background-image: url({% static 'landing/img/slide/slide-1.jpg' %});">
+                    <div class="carousel-container">
+                        <div class="carousel-content">
+                            <h2 class="animate__animated animate__fadeInDown">Science Education - Projects Work</h2>
+                            <p class="animate__animated animate__fadeInUp">The Science Education Project Inventory Management Software is a comprehensive and user-friendly tool designed specifically for science education students. It streamlines the process of managing and tracking inventory for science projects, providing an efficient solution to organize and access project resources. This software aims to enhance productivity, reduce administrative burden, and facilitate smooth project execution.</p>
+                            <div>
+                                <a href="{% url 'projects' %}" class="btn-get-started animate__animated animate__fadeInUp scrollto">Get started</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Hero -->
+
+{% endblock content %}
+
+</body>
+
+</html>
